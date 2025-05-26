@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { FaHardHat } from 'react-icons/fa';
 
@@ -11,9 +11,13 @@ const ContactPage = () => {
     message: ''
   });
 
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  useEffect(() => {
+    // Initialize EmailJS with your Public Key (from .env)
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,9 +33,6 @@ const ContactPage = () => {
     }
   
     setIsSubmitting(true);
-  
-    // Initialize EmailJS with your Public Key (from .env)
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   
     emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -65,7 +66,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-slate-800">
+    <div id="contact" className="bg-slate-800">
       {/* Hero Section */}
       <div className="relative bg-slate-800 overflow-hidden h-[50vh]">
         <div className="absolute inset-0">
